@@ -17,4 +17,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EntrySheet.Domain\EntrySheet.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
