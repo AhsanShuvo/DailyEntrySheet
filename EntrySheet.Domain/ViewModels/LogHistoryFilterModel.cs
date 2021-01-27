@@ -2,7 +2,7 @@
 
 namespace EntrySheet.Domain.ViewModels
 {
-    public class LogHistoryInfoViewModel
+    public class LogHistoryFilterModel
     {
         public string UserName { get; set; }
         public DateTime StartDate { get; set; }

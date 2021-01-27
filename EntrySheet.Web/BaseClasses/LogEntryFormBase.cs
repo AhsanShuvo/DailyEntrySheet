@@ -1,4 +1,5 @@
 ﻿using EntrySheet.Domain.ViewModels;
+using EntrySheet.Web.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
@@ -9,16 +10,10 @@ namespace EntrySheet.Web.BaseClasses
     {
         [Parameter]
         public LogEntryViewModel LogEntry { get; set; }
-        protected int DaysOfMonth { get; set; }
         [Parameter]
         public EventCallback<LogEntryViewModel> OnSubmitLogEntry { get; set; }
-
-        protected override void OnInitialized()
-        {
-            DaysOfMonth = DateTime.DaysInMonth(LogEntry.Year, DateTime.Now.Month) + 1;
-
-            base.OnInitialized();
-        }
+        [Inject]
+        public IUserLogRepository UserLogRepository { get; set; }
 
         protected async Task HandleValidSubmit()
         {

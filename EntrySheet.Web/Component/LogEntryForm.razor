@@ -1,69 +1,47 @@
 ﻿@inherits LogEntryFormBase
 
-<div class="card-title">
-    <h2>Entry Form</h2>
-</div>
-
-<div class="card-body">
-    <EditForm Model="@LogEntry" OnValidSubmit="@HandleValidSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="row">
-            <div class="col-md-4">
-                Date:
-                <select @bind="LogEntry.Day">
-                    @for (var day = 1; day < DaysOfMonth; day++)
-                    {
-                        <option>@day</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-4">
-                Month:
-                <select @bind="LogEntry.Month">
-                    @for (int month = 1; month <= 12; month++)
-                    {
-                        <option>@month</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-4">
-                Year:
-                <select @bind="LogEntry.Year">
-                    @for (var year = LogEntry.Year - 20; year <= LogEntry.Year + 20; year++)
-                    {
-                        <option>@year</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="row mt-2">
+<EditForm Model="@LogEntry" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="card-title">
+        <h2>Entry Form</h2>
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
             <div class="col-md-3">
-                <label class="control-label">Description: </label>
-            </div>
-            <div class="form-group-sm col-md-9">
-                :<textarea rows="4" @bind="LogEntry.Description" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-md-2">
-                <label class="control-label">Hours: </label>
+                <label class="control-label text-right">Entry date</label>
             </div>
             <div class="col-md-9">
-                <input @bind="LogEntry.Hours" />
+                <InputDate class="form-control" @bind-Value="LogEntry.EntryDate"></InputDate>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-md-2">
-                <label class="control-label">Minutes: </label>
+        <div class="row mt-2 form-group">
+            <div class="col-md-3">
+                <label class="control-label text-right">Description</label>
             </div>
             <div class="col-md-9">
-                <input @bind="LogEntry.Minutes" />
+                <InputTextArea class="form-control" row="4" @bind-Value="LogEntry.Description"></InputTextArea>
             </div>
         </div>
-        <div class="row mt-2">
-            <button class="text-center" type="submit">Submit</button>
+        <div class="row mt-2 form-group">
+            <div class="col-md-3 ">
+                <label class="control-label text-right">Hours</label>
+            </div>
+            <div class="col-md-9">
+                <InputNumber class="form-control" @bind-Value="LogEntry.Hours"></InputNumber>
+            </div>
         </div>
-    </EditForm>
-</div>
+        <div class="row mt-2 form-group">
+            <div class="col-md-3">
+                <label class="control-label text-right">Minutes</label>
+            </div>
+            <div class="col-md-9">
+                <InputNumber class="form-control" @bind-Value="LogEntry.Minutes"></InputNumber>
+            </div>
+        </div>
+    </div>
+    <div classs="card-footer">
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+</EditForm>
 

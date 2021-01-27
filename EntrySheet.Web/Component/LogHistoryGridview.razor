@@ -1,3 +1,40 @@
 ﻿@inherits LogHistoryGridViewBase
 
+@if (Logs == null)
+{
+    <div>
+        <p>Loading..</p>
+    </div>
+}
+else
+{
+    if (Logs.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Project</th>
+                    <th>Description</th>
+                    <th>Hours</th>
+                    <th>Minutes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Logs)
+                {
+                    <tr>
+
+                        <td>@item.EntryDate.ToShortDateString()</td>
+                        <td>@item.ProjectRef.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.Hours</td>
+                        <td>@item.Minutes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
 

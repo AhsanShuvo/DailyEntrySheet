@@ -2,11 +2,28 @@
 
 @inherits IndexBase
 
-<div class="card text-center mx-auto" style="width: 28rem;">
-    <LogEntryForm LogEntry="@LogEntry" OnSubmitLogEntry="SubmitLogEntry"></LogEntryForm>
-</div>
-<div class="card text-center mx-auto mt-5" style="width: 40rem">
-    <div class="row">
-        
+<div style="overflow:hidden">
+    <div class="card text-center mx-auto" style="width: 28rem;">
+        <LogEntryForm LogEntry="@LogEntry" OnSubmitLogEntry="SubmitLogEntry"></LogEntryForm>
+    </div>
+    <div class="card text-center mx-auto mt-5" style="width: 60rem">
+        <div class="row form-group">
+            <div class="text-sm-right col-md-2">
+                <label class="col-form-label">Startdate:</label>
+            </div>
+            <div class="col-md-3">
+                <input type="date" @bind="LogHistory.StartDate" class="form-control" />
+            </div>
+            <div class="text-sm-right col-md-2">
+                <div class="col-form-label">Enddate:</div>
+            </div>
+            <div class="col-md-3">
+                <input type="date" @bind="LogHistory.EndDate" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success" @onclick="UpdateViewLogHistory">Go</button>
+            </div>
+        </div>
+        <LogHistoryGridview logHistoryInfoViewModel="LogHistory" @ref="_logView"></LogHistoryGridview>
     </div>
 </div>

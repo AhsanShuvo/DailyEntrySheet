@@ -16,4 +16,11 @@ namespace EntrySheet.Domain.Enums
         Nov,
         Dec
     }
+
+    public enum Role
+    {
+        GlobalAdmin,
+        UserAdmin,
+        User
+    }
 }

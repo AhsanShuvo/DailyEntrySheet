@@ -1,0 +1,52 @@
+﻿@inherits AssignUserBase
+
+@if (Projects != null && Users != null && Projects.Count > 0 && Users.Count > 0)
+{
+    <div class="card mx-auto col-md-10 mt-3">
+        <h3 class="card-title mt-2 text-center"> Assign a user in project</h3>
+        <form @onsubmit="AssignNewUser">
+            <div class="form-group row">
+                <div class="col-md-1 text-right">
+                    <label class="col-form-label">Project</label>
+                </div>
+                <div class="col-md-4 text-left">
+                    <select value="@ProjectId" @onchange="ShowAssignedUser" class="form-control">
+                        @foreach (var item in Projects)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-1 text-right">
+                    <label class="col-form-label"> User</label>
+                </div>
+                <div class="col-md-4 text-left">
+                    <select @bind="UserId" class="form-control">
+                        @foreach (var item in Users)
+                        {
+                            <option value="@item.Id">@item.UserName</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success float-right mr-1">Add</button>
+            </div>
+        </form>
+        @if (AssignedUsers != null && AssignedUsers.Count > 0)
+        {
+            <h4 class="mt-4">Assigned Users</h4>
+            <div class="mt-4">
+                <ul>
+                    @foreach (var item in AssignedUsers)
+                    {
+                        <li>
+                            <div>
+                                @item.UserRef.UserName <span clsas="ml-5"><button type="button" class="btn btn-danger btn-sm" @onclick="@(() => RemoveAssignedUser(item.Id))">Delete</button></span>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        }
+    </div>
+}

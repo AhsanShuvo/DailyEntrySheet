@@ -1,0 +1,60 @@
+﻿@typeparam TItem
+@using System.Reflection
+
+@if (memberinfo != null && memberinfo.Length > 0)
+{
+    <h2 class="text-center card-title">@Title</h2>
+    <table class="table col-md-8 text-center mx-auto">
+        <thead>
+            <tr>
+                @foreach (var member in memberinfo)
+                {
+                    @if (member.MemberType == MemberTypes.Property)
+                    {
+                        <th>@member.Name</th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Items)
+            {
+                <tr class="border">
+                    @foreach (var member in memberinfo)
+                    {
+                        if (member.MemberType == MemberTypes.Property)
+                        {
+                            <td>
+                                @item.GetType().GetProperty(member.Name).GetValue(item)
+                            </td>
+                        }
+                    }
+                    <td>
+                        <button type="button" class="btn btn-success">Edit</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code{
+    MemberInfo[] memberinfo;
+    [Parameter]
+    public List<TItem> Items { get; set; }
+    [Parameter]
+    public string Title { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Items != null && Items.Count > 0)
+        {
+            Type typeOfItem = this.Items[0].GetType();
+            memberinfo = typeOfItem.GetMembers();
+        }
+    }
+}
+
