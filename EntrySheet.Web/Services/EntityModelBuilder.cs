@@ -23,7 +23,7 @@ namespace EntrySheet.Web.Services
             var hashedPasword = _passwordHasher.HashPassword(user, model.Password);
             user.SecurityStamp = Guid.NewGuid().ToString();
             user.PasswordHash = hashedPasword;
-
+            user.Email = model.Email;
             return user;
         }
 
@@ -33,7 +33,8 @@ namespace EntrySheet.Web.Services
             {
                 Id = model.Id,
                 UserName = model.UserName,
-                Password = model.PasswordHash
+                Password = model.PasswordHash,
+                Email = model.Email
             };
             return user; 
         }

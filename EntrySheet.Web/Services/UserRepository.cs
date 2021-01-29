@@ -1,6 +1,7 @@
 ﻿using EntrySheet.Web.Data;
 using EntrySheet.Web.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +76,35 @@ namespace EntrySheet.Web.Services
             catch(Exception e)
             {
                 return new IdentityUser();
+            }
+        }
+
+        public bool AddUserRole(IdentityUserRole<string> userRole)
+        {
+            try
+            {
+                var res = _context.UserRoles.Add(userRole);
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+        public string GetUserRole(string userId)
+        {
+            try
+            {
+                var res = _context.UserRoles.Where(x => x.UserId == userId)
+                    .Select(x => x.RoleId).FirstOrDefault();
+
+                return res;
+            }
+            catch(Exception e)
+            {
+                return string.Empty;
             }
         }
     }

@@ -8,5 +8,8 @@ namespace EntrySheet.Web.Interfaces
         bool AddUser(IdentityUser model);
         List<IdentityUser> GetFilteredUsers();
         IdentityUser GetUser(string id);
+        bool AddUserRole(IdentityUserRole<string> userRole);
+        List<IdentityUser> GetUsers();
+        string GetUserRole(string userId);
     }
 }

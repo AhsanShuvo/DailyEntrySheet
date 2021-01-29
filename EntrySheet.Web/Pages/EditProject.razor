@@ -9,25 +9,24 @@
 }
 else
 { 
-    <EditForm Model="ProjectInfo" OnValidSubmit="SubmitProject">
-
-        <div class="card text-center mx-auto" style="width:28rem">
-            <div class="card-header">
-                <h1 class="card-title">Create a new project</h1>
-            </div>
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="card-body">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label text-right">Project Name</label>
-                    <div class="col-md-4">
-                        <InputText @bind-Value="ProjectInfo.Name"></InputText>
-                    </div>
+<EditForm Model="ProjectInfo" OnValidSubmit="SubmitProject">
+    <FluentValidationValidator />
+    <div class="card text-center mx-auto" style="width:28rem">
+        <div class="card-title text-center bg-info">
+            <h1>Create a new project</h1>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label text-right">Project Name</label>
+                <div class="col-md-8">
+                    <InputText @bind-Value="ProjectInfo.Name" class="form-control"></InputText>
+                    <ValidationMessage For="() => ProjectInfo.Name"></ValidationMessage>
                 </div>
-             </div>
-            <div class="card-footer">
-                <button type="submit">Submit</button>
+            </div>
+            <div clss="row">
+                <button type="submit" class="btn btn-outline-success">Submit</button>
             </div>
         </div>
-    </EditForm>
+    </div>
+</EditForm>
 }

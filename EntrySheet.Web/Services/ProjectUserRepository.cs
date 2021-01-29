@@ -57,5 +57,20 @@ namespace EntrySheet.Web.Services
                 return false;
             }
         }
+
+        public ProjectUser GetAssignedProject(string userId)
+        {
+            try
+            {
+                return _context.ProjectUsers
+                    .Include(m => m.UserRef)
+                    .Include(m => m.ProjectRef)
+                    .Where(m => m.UserRef.Id == userId).FirstOrDefault();
+            }
+            catch(Exception e)
+            {
+                return new ProjectUser();
+            }
+        }
     }
 }

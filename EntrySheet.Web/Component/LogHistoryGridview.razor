@@ -1,40 +1,43 @@
 ﻿@inherits LogHistoryGridViewBase
 
-@if (Logs == null)
+@if (Logs != null && Logs.Count > 0)
 {
-    <div>
-        <p>Loading..</p>
-    </div>
-}
-else
-{
-    if (Logs.Count > 0)
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Project</th>
-                    <th>Description</th>
-                    <th>Hours</th>
-                    <th>Minutes</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Logs)
+    <table class="table mt-2 table-striped table-bordered">
+        <thead>
+            <tr class="bg-info" style="height: 20px">
+                <th>Date</th>
+                <th>Project</th>
+                <th>Description</th>
+                <th>Hours</th>
+                <th>Minutes</th>
+                @if (IsEditable == true)
                 {
-                    <tr>
-
-                        <td>@item.EntryDate.ToShortDateString()</td>
-                        <td>@item.ProjectRef.Name</td>
-                        <td>@item.Description</td>
-                        <td>@item.Hours</td>
-                        <td>@item.Minutes</td>
-                    </tr>
+                    <th>Action</th>
                 }
-            </tbody>
-        </table>
-    }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Logs)
+            {
+                <tr style="height: 18px">
+                    <td>@item.EntryDate.ToShortDateString()</td>
+                    <td>@item.ProjectRef.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Hours</td>
+                    <td>@item.Minutes</td>
+                    @if (IsEditable == true)
+                    {
+                        <td class="text-center col-md-auto">
+                            <button type="button" class="btn btn-success btn-sm rounded-pill" @onclick="@(() => EditLog(item.Id))">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm ml-2 rounded-pill" @onclick="@(() => RemoveLog(item.Id))"><i class="fas fa-times"></i></button>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 

@@ -37,15 +37,22 @@ namespace EntrySheet.Web.BaseClasses
             Users = UserRepository.GetFilteredUsers();
             Projects = ProjectRepository.GetProjects();
             if(ProjectId != 0)FillAssignedUser();
+            UserId = Users[0].Id;
         }
 
         public void AssignNewUser()
         {
-            ProjectUser.ProjectRef = Projects.Where(x => x.Id == ProjectId).FirstOrDefault();
-            ProjectUser.UserRef = Users.Where(x => x.Id == UserId).FirstOrDefault();
+            if(ProjectId != 0)
+            {
+                ProjectUser = new ProjectUser
+                {
+                    ProjectRef = Projects.Where(x => x.Id == ProjectId).FirstOrDefault(),
+                    UserRef = Users.Where(x => x.Id == UserId).FirstOrDefault()
+                };
 
-            var res = ProjectUserRepository.AddNewUser(ProjectUser);
-            InitializeData();
+                var res = ProjectUserRepository.AddNewUser(ProjectUser);
+                InitializeData();
+            }
         }
 
         public void ShowAssignedUser(ChangeEventArgs args)

@@ -1,5 +1,42 @@
-﻿<h3>ViewLogs</h3>
+﻿@page "/viewlogs"
 
-@code {
+@inherits ViewLogsBase
 
+@if (Users != null && Projects != null)
+{
+    <EditForm Model="LogHistoryFilterModel" OnValidSubmit="ShowLogsByFilter">
+        <FluentValidationValidator />
+        <div class="row col-md-12">
+            <div>
+                <label class="text-info">User</label>&nbsp;
+                <InputSelect @bind-Value="LogHistoryFilterModel.UserName" style="width: 160px; height: 29px">
+                    @foreach (var user in Users)
+                        {
+                        <option>@user.UserName</option>
+                        }
+                </InputSelect>
+            </div>
+            <div class="ml-3">
+                <label class="text-info">Project</label>&nbsp;
+                <InputSelect @bind-Value="LogHistoryFilterModel.Project" style="width: 160px; height: 29px">
+                    @foreach (var project in Projects)
+                        {
+                        <option>@project.Name</option>
+                        }
+                </InputSelect>
+            </div>
+            <div class="ml-3">
+                <label class="text-info">StartDate</label>&nbsp;
+                <InputDate @bind-Value="LogHistoryFilterModel.StartDate" style="width: 160px; height: 29px"></InputDate>
+            </div>
+            <div class="ml-3">
+                <label class="text-info">EndDate</label>
+                <InputDate @bind-Value="LogHistoryFilterModel.EndDate" style="width: 160px; height: 29px"></InputDate>
+            </div>
+            <div class="ml-2">
+                <button type="submit" class="btn btn-success btn-sm">Go</button>
+            </div>
+        </div>
+    </EditForm>
+    <LogHistoryGridview logHistoryInfoViewModel="LogHistoryFilterModel" @ref="LogView"></LogHistoryGridview>
 }

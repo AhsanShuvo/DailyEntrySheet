@@ -27,7 +27,7 @@ namespace EntrySheet.Web.BaseClasses
         public void SubmitProject()
         {
             var response = ProjectRepository.AddProject(ProjectInfo);
-            NavigationManager.NavigateTo("projects");
+            if(response == true)NavigationManager.NavigateTo("projects");
         }
     }
 }

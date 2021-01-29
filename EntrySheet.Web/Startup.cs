@@ -30,6 +30,7 @@ namespace EntrySheet.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -39,6 +40,7 @@ namespace EntrySheet.Web
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEntityModelBuilder, EntityModelBuilder>();
             services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

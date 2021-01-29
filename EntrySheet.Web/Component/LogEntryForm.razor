@@ -1,47 +1,49 @@
 ﻿@inherits LogEntryFormBase
 
 <EditForm Model="@LogEntry" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="card-title">
+    <FluentValidationValidator />
+    <div class="card-title bg-info">
         <h2>Entry Form</h2>
     </div>
     <div class="card-body">
         <div class="form-group row">
             <div class="col-md-3">
-                <label class="control-label text-right">Entry date</label>
+                <label class="control-label text-right text-info">Entry date</label>
             </div>
             <div class="col-md-9">
                 <InputDate class="form-control" @bind-Value="LogEntry.EntryDate"></InputDate>
+                <ValidationMessage For="() => LogEntry.EntryDate"></ValidationMessage>
             </div>
         </div>
         <div class="row mt-2 form-group">
             <div class="col-md-3">
-                <label class="control-label text-right">Description</label>
+                <label class="control-label text-right text-info">Description</label>
             </div>
             <div class="col-md-9">
                 <InputTextArea class="form-control" row="4" @bind-Value="LogEntry.Description"></InputTextArea>
+                <ValidationMessage For="() => LogEntry.Description"></ValidationMessage>
             </div>
         </div>
         <div class="row mt-2 form-group">
             <div class="col-md-3 ">
-                <label class="control-label text-right">Hours</label>
+                <label class="control-label text-right text-info">Hours</label>
             </div>
             <div class="col-md-9">
                 <InputNumber class="form-control" @bind-Value="LogEntry.Hours"></InputNumber>
+                <ValidationMessage For="() => LogEntry.Hours"></ValidationMessage>
             </div>
         </div>
         <div class="row mt-2 form-group">
             <div class="col-md-3">
-                <label class="control-label text-right">Minutes</label>
+                <label class="control-label text-right text-info">Minutes</label>
             </div>
             <div class="col-md-9">
                 <InputNumber class="form-control" @bind-Value="LogEntry.Minutes"></InputNumber>
             </div>
         </div>
-    </div>
-    <div classs="card-footer">
-        <button type="submit" class="btn btn-success">Submit</button>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
     </div>
 </EditForm>
 

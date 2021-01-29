@@ -3,17 +3,18 @@
 
 @if (memberinfo != null && memberinfo.Length > 0)
 {
-    <h2 class="text-center card-title">@Title</h2>
-    <table class="table col-md-8 text-center mx-auto">
+    <h3 class="text-center text-info">@Title</h3>
+    <table class="table-striped col-md-9 text-center mx-auto">
         <thead>
-            <tr>
+            <tr class="bg-info">
                 @foreach (var member in memberinfo)
                 {
-                    @if (member.MemberType == MemberTypes.Property)
+                    @if (member.MemberType == MemberTypes.Property && !ColumntoExcludeCSV.Contains(member.Name, StringComparison.OrdinalIgnoreCase))
                     {
-                        <th>@member.Name</th>
+                        <th class="col-md-auto">@member.Name</th>
                     }
                 }
+                <th class="col-md-auto">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,16 +23,18 @@
                 <tr class="border">
                     @foreach (var member in memberinfo)
                     {
-                        if (member.MemberType == MemberTypes.Property)
+                        if (member.MemberType == MemberTypes.Property && !ColumntoExcludeCSV.Contains(member.Name, StringComparison.OrdinalIgnoreCase))
                         {
-                            <td>
+                            <td class="col-md-auto">
                                 @item.GetType().GetProperty(member.Name).GetValue(item)
                             </td>
                         }
                     }
-                    <td>
-                        <button type="button" class="btn btn-success">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                    <td class="text-center col-md-auto">
+                        <button type="button" class="btn btn-success btn-sm rounded-pill">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm ml-2 rounded-pill"><i class="fas fa-times"></i></button>
                     </td>
                 </tr>
             }
@@ -45,6 +48,8 @@
     public List<TItem> Items { get; set; }
     [Parameter]
     public string Title { get; set; }
+    [Parameter]
+    public string ColumntoExcludeCSV { get; set; }
 
     protected override void OnParametersSet()
     {
@@ -54,6 +59,7 @@
         {
             Type typeOfItem = this.Items[0].GetType();
             memberinfo = typeOfItem.GetMembers();
+            ColumntoExcludeCSV = ColumntoExcludeCSV ?? "";
         }
     }
 }

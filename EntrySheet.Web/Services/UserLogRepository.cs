@@ -46,5 +46,33 @@ namespace EntrySheet.Web.Services
                 return new List<UserLog>();
             }
         }
+
+        public void RemoveUserLog(UserLog logDetails)
+        {
+            try
+            {
+                _context.UserLogs.Remove(logDetails);
+                _context.SaveChanges();
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
+
+        public bool UpdateUserLog(UserLog logDetails)
+        {
+            try
+            {
+                _context.Attach(logDetails);
+                _context.Entry(logDetails).State = EntityState.Modified;
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

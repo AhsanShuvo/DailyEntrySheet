@@ -2,12 +2,12 @@
 
 @if (Projects != null && Users != null && Projects.Count > 0 && Users.Count > 0)
 {
-    <div class="card mx-auto col-md-10 mt-3">
-        <h3 class="card-title mt-2 text-center"> Assign a user in project</h3>
-        <form @onsubmit="AssignNewUser">
+    <div class="card mx-auto col-md-9 mt-3">
+        <h3 class="card-title mt-1 text-center text-info"> Assign a user in project</h3>
+        <form @onsubmit="AssignNewUser" class="mt-2">
             <div class="form-group row">
                 <div class="col-md-1 text-right">
-                    <label class="col-form-label">Project</label>
+                    <label class="col-form-label text-info">Project:</label>
                 </div>
                 <div class="col-md-4 text-left">
                     <select value="@ProjectId" @onchange="ShowAssignedUser" class="form-control">
@@ -17,8 +17,8 @@
                         }
                     </select>
                 </div>
-                <div class="col-md-1 text-right">
-                    <label class="col-form-label"> User</label>
+                <div class="col-md-1 ">
+                    <label class="col-form-label text-right text-info"> User:</label>
                 </div>
                 <div class="col-md-4 text-left">
                     <select @bind="UserId" class="form-control">
@@ -28,20 +28,18 @@
                         }
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success float-right mr-1">Add</button>
+                <button type="submit" class="btn btn-success float-right rounded-pill">Add</button>
             </div>
         </form>
         @if (AssignedUsers != null && AssignedUsers.Count > 0)
         {
-            <h4 class="mt-4">Assigned Users</h4>
+            <h4 class="mt-4 text-info">Assigned Users</h4>
             <div class="mt-4">
-                <ul>
+                <ul class="list-group">
                     @foreach (var item in AssignedUsers)
                     {
-                        <li>
-                            <div>
-                                @item.UserRef.UserName <span clsas="ml-5"><button type="button" class="btn btn-danger btn-sm" @onclick="@(() => RemoveAssignedUser(item.Id))">Delete</button></span>
-                            </div>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @item.UserRef.UserName<span class="badge"><button class="btn btn-danger btn-sm rounded-pill" type="button" @onclick="@(() => RemoveAssignedUser(item.Id))"><i class="fas fa-times"></i></button></span>
                         </li>
                     }
                 </ul>
