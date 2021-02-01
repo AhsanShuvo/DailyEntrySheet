@@ -1,7 +1,12 @@
 ﻿@page "/users"
 @inherits UsersBase
+@attribute [Authorize(Roles = "Global Admin")]
 
-<div class="mt-2">
-    <a href="edituser" class="text-primary">Create a new user?</a>
-</div>
-<CustomAutoGrid Items="Users" Title="@Title" ColumntoExcludeCSV="Password, Id"></CustomAutoGrid>
+<AuthorizeView>
+    <Authorized>
+        <div class="mt-2">
+            <a href="edituser" class="text-primary">Create a new user?</a>
+        </div>
+        <CustomAutoGrid Items="Users" Title="@Title" ColumntoExcludeCSV="Password, Id" OnEditItem="EditUser" OnDeleteItem="DeleteUser" @ref="GridView"></CustomAutoGrid>
+    </Authorized>
+</AuthorizeView>

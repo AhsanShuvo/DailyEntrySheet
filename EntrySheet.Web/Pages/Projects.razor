@@ -1,9 +1,14 @@
 ﻿@page "/projects"
 
 @inherits ProjectsBase
+@attribute [Authorize(Roles = "Global Admin, User Admin")]
 
-<div class="mt-2">
-    <a href="editproject" class="text-primary">Create a new project?</a>
-</div>
-<CustomAutoGrid Items="Projects" Title="@Title"></CustomAutoGrid>
-<AssignUser></AssignUser>
+<AuthorizeView>
+    <Authorized>
+        <div class="mt-2">
+            <a href="editproject" class="text-primary">Create a new project?</a>
+        </div>
+        <CustomAutoGrid Items="Projects" Title="@Title" OnEditItem="EditProject" OnDeleteItem="DeleteProject" @ref="GridView"></CustomAutoGrid>
+        <AssignUser @ref="AssignUser"></AssignUser>
+    </Authorized>
+</AuthorizeView>

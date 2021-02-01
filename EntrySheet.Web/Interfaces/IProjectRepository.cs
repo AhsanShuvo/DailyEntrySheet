@@ -8,5 +8,8 @@ namespace EntrySheet.Web.Interfaces
         bool AddProject(Project model);
         List<Project> GetProjects();
         Project GetProject(int id);
+        bool UpdateProject(Project model);
+        void RemoveProject(int id);
+        bool SearchProjectName(string name);
     }
 }

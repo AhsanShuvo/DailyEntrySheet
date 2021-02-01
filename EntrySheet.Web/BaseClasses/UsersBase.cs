@@ -1,5 +1,6 @@
 ﻿using EntrySheet.Domain.Enums;
 using EntrySheet.Domain.ViewModels;
+using EntrySheet.Web.Component;
 using EntrySheet.Web.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -15,6 +16,14 @@ namespace EntrySheet.Web.BaseClasses
         public IUserRepository UserRepository { get; set; }
         [Inject]
         public IEntityModelBuilder EntityModelBuilder { get; set; }
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+        [Inject]
+        public IProjectUserRepository ProjectUserRepository { get; set; }
+        [Inject]
+        public IUserLogRepository UserLogRepository { get; set; }
+        public CustomAutoGrid<UserViewModel> GridView { get; set; }
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -25,6 +34,7 @@ namespace EntrySheet.Web.BaseClasses
 
         private void PopulateUsers()
         {
+            Users.Clear();
             var users = UserRepository.GetUsers();
             foreach(var user in users)
             {
@@ -34,6 +44,27 @@ namespace EntrySheet.Web.BaseClasses
                 userViewModel.Role = userRole;
                 Users.Add(userViewModel);
             }
+        }
+
+        public void EditUser(string id)
+        {
+            NavigationManager.NavigateTo("edituser/" + id);
+        }
+
+        public void DeleteUser(string id)
+        {
+            UserRepository.DeleteUser(id);
+            var projectUser = ProjectUserRepository.GetAssignedProject(id);
+            ProjectUserRepository.RemoveAssignedUser(projectUser);
+            UserLogRepository.RemoveUserLogsByUserId(id);
+            UpdateChild();
+            
+        }
+
+        private void UpdateChild()
+        {
+            PopulateUsers();
+            GridView.Refresh();
         }
     }
 }

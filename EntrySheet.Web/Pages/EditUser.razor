@@ -2,6 +2,7 @@
 @page "/edituser/{id}"
 
 @inherits EditUserBase
+@attribute [Authorize(Roles = "Global Admin")]
 
 @if (UserInfo == null)
 {
@@ -13,31 +14,33 @@ else
         <FluentValidationValidator/>
         <div class="card text-center mx-auto" style="width:28rem">
             <div class="card-title text-center back bg-info">
-                <h1>Create a new user</h1>
+                <h1>@Title</h1>
             </div>
             <div class="card-body">
-                <div class="form-group row">
-                    <label class="text-right col-md-3">Username</label>
-                    <div class="col-md-9 text-left bg-gradient-dark">
-                        <InputText  @bind-Value="UserInfo.UserName" class="form-control"></InputText>
-                        <ValidationMessage For="() => UserInfo.UserName"></ValidationMessage>
+                @if (Id == null)
+                {
+                    <div class="form-group row">
+                        <label class="text-right col-md-3">Username</label>
+                        <div class="col-md-9 text-left bg-gradient-dark">
+                            <InputText @bind-Value="UserInfo.UserName" class="form-control"></InputText>
+                            <ValidationMessage For="() => UserInfo.UserName"></ValidationMessage>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 text-right">Email</label>
-                    <div class="col-md-9 text-left">
-                        <InputText @bind-Value="UserInfo.Email" type="email" class="form-control"></InputText>
-
-                        <ValidationMessage For="() => UserInfo.Email"></ValidationMessage>
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right">Email</label>
+                        <div class="col-md-9 text-left">
+                            <InputText @bind-Value="UserInfo.Email" type="email" class="form-control"></InputText>
+                            <ValidationMessage For="() => UserInfo.Email"></ValidationMessage>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 text-right">Password</label>
-                    <div class="col-md-9 text-left">
-                        <InputText type="password" @bind-Value="UserInfo.Password" class="form-control"></InputText>
-                        <ValidationMessage For="() => UserInfo.Password"></ValidationMessage>
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right">Password</label>
+                        <div class="col-md-9 text-left">
+                            <InputText type="password" @bind-Value="UserInfo.Password" class="form-control"></InputText>
+                            <ValidationMessage For="() => UserInfo.Password"></ValidationMessage>
+                        </div>
                     </div>
-                </div>
+                }
                 <div class="form-group row">
                     <label class="col-sm-3 text-right">Role</label>
                     <div class="col-md-9 text-left">
@@ -51,7 +54,7 @@ else
                     </div>
                 </div>
                 <div clss="row">
-                    <button type="submit" class="btn btn-outline-success">Submit</button>
+                    <button type="submit" class="btn btn-outline-success">@ButtonText</button>
                 </div>
             </div>
         </div>

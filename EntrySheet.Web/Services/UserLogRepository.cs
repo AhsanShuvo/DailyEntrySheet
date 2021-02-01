@@ -2,6 +2,7 @@
 using EntrySheet.Web.Data;
 using EntrySheet.Web.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,11 @@ namespace EntrySheet.Web.Services
 {
     public class UserLogRepository : BaseRepository, IUserLogRepository
     {
-        public UserLogRepository(ApplicationDbContext context): base(context)
+        private ILogger<UserLogRepository> _logger;
+
+        public UserLogRepository(ApplicationDbContext context, ILogger<UserLogRepository> logger): base(context)
         {
+            _logger = logger;
         }
         
         public bool AddUserLog(UserLog logDetails)
@@ -24,7 +28,7 @@ namespace EntrySheet.Web.Services
             }
             catch(Exception e)
             {
-                // Need to use logger
+                _logger.LogError(e, "Failed to connect to the server to add a userlog");
                 return false;
             }
         }
@@ -43,6 +47,7 @@ namespace EntrySheet.Web.Services
             }
             catch(Exception e)
             {
+                _logger.LogError(e, "Failed to connect to the database server to fetch user log");
                 return new List<UserLog>();
             }
         }
@@ -56,7 +61,7 @@ namespace EntrySheet.Web.Services
             }
             catch(Exception e)
             {
-
+                _logger.LogError(e, "Failed to connect to the database server to remove user logs");
             }
         }
 
@@ -71,7 +76,42 @@ namespace EntrySheet.Web.Services
             }
             catch(Exception e)
             {
+                _logger.LogError(e, "Failed to connect to the database server to update user logs");
                 return false;
+            }
+        }
+
+        public void RemoveUserLogsByUserId(string id)
+        {
+            try
+            {
+                var userLogs = _context.UserLogs
+                            .Include(m => m.UserRef)
+                            .Where(m => m.UserRef.Id == id)
+                            .ToList();
+                _context.UserLogs.RemoveRange(userLogs);
+                _context.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                _logger.LogError(e, "Failed to connect to the database server to remove user logs");
+            }
+        }
+
+        public void RemoveUserLogsByProjectId(int id)
+        {
+            try
+            {
+                var userLogs = _context.UserLogs
+                            .Include(m => m.ProjectRef)
+                            .Where(m => m.ProjectRef.Id == id)
+                            .ToList();
+                _context.UserLogs.RemoveRange(userLogs);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to connect to the database server to remove user logs");
             }
         }
     }

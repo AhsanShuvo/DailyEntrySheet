@@ -7,6 +7,8 @@ namespace EntrySheet.Web.BaseClasses
     public class EditProjectBase : ComponentBase
     {
         public Project ProjectInfo { get; set; }
+        public string Title { get; set; }
+        public string ButtonText { get; set; }
         [Parameter]
         public int Id { get; set; }
         [Inject]
@@ -20,13 +22,28 @@ namespace EntrySheet.Web.BaseClasses
             ProjectInfo = new Project();
             if(Id != 0)
             {
+                Title = "Edit your project";
+                ButtonText = "Update";
                 ProjectInfo = ProjectRepository.GetProject(Id);
+            }
+            else
+            {
+                Title = "Create a new project";
+                ButtonText = "Create";
             }
         }
 
         public void SubmitProject()
         {
-            var response = ProjectRepository.AddProject(ProjectInfo);
+            var response = false;
+            if(Id > 0)
+            {
+                response = ProjectRepository.UpdateProject(ProjectInfo);
+            }
+            else
+            {
+                response = ProjectRepository.AddProject(ProjectInfo);
+            }
             if(response == true)NavigationManager.NavigateTo("projects");
         }
     }

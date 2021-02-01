@@ -33,7 +33,6 @@ namespace EntrySheet.Web.BaseClasses
         public void Refresh()
         {
             UpdateState();
-            StateHasChanged();
         }
 
         private void UpdateState()

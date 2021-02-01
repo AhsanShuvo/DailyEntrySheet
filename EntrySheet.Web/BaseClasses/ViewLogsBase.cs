@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EntrySheet.Web.BaseClasses
@@ -25,14 +26,15 @@ namespace EntrySheet.Web.BaseClasses
         public LogHistoryGridview LogView { get; set; }
         [Inject]
         public IProjectUserRepository ProjectUserRepository { get; set; }
+        private List<Claim> Claims { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
+            Claims = await UserService.GetUserClaims();
             LogHistoryFilterModel = new LogHistoryFilterModel();
             Users = new List<IdentityUser>();
             Projects = new List<Project>();
-            await PopulateFieldData();
-            StateHasChanged();
+            PopulateFieldData();
         }
 
         public void ShowLogsByFilter()
@@ -40,15 +42,14 @@ namespace EntrySheet.Web.BaseClasses
             LogView.Refresh();
         }
 
-        private async Task PopulateFieldData()
+        private void PopulateFieldData()
         {
-            var claims = await UserService.GetUserClaims();
-            var role = claims[3].Value.ToString();
+            var role = Claims[3].Value.ToString();
             Enum.TryParse(role, out Role userRole);
             if(userRole == Role.User)
             {
                 Users.Clear();
-                Users.Add(UserRepository.GetUser(claims[0].Value.ToString()));
+                Users.Add(UserRepository.GetUser(Claims[0].Value.ToString()));
             }
             else
             {
@@ -57,8 +58,9 @@ namespace EntrySheet.Web.BaseClasses
             Projects = ProjectRepository.GetProjects();
             LogHistoryFilterModel.StartDate = DateTime.Now.AddDays(-7);
             LogHistoryFilterModel.EndDate = DateTime.Now;
-            LogHistoryFilterModel.Project = (ProjectUserRepository.GetAssignedProject(claims[0].Value)).ProjectRef.Name;
-            LogHistoryFilterModel.UserName = claims[1].Value;
+            var project = ProjectUserRepository.GetAssignedProject(Claims[0].Value);
+            if (project != null) LogHistoryFilterModel.Project = project.ProjectRef.Name;
+            LogHistoryFilterModel.UserName = Claims[1].Value;
         }
     }
 }

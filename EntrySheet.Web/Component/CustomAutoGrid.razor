@@ -32,9 +32,9 @@
                     }
                     <td class="text-center col-md-auto">
                         <button type="button" class="btn btn-success btn-sm rounded-pill">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-edit" @onclick='(()=> Edit(item.GetType().GetProperty("Id").GetValue(item)))'></i>
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm ml-2 rounded-pill"><i class="fas fa-times"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm ml-2 rounded-pill"><i class="fas fa-times" @onclick='(()=> Delete(item.GetType().GetProperty("Id").GetValue(item)))'></i></button>
                     </td>
                 </tr>
             }
@@ -50,6 +50,10 @@
     public string Title { get; set; }
     [Parameter]
     public string ColumntoExcludeCSV { get; set; }
+    [Parameter]
+    public EventCallback<string> OnEditItem { get; set; }
+    [Parameter]
+    public EventCallback<string> OnDeleteItem { get; set; }
 
     protected override void OnParametersSet()
     {
@@ -61,6 +65,23 @@
             memberinfo = typeOfItem.GetMembers();
             ColumntoExcludeCSV = ColumntoExcludeCSV ?? "";
         }
+    }
+
+    public void Edit(object id)
+    {
+        var itemId = Convert.ToString(id);
+        OnEditItem.InvokeAsync(itemId);
+    }
+
+    public void Delete(object id)
+    {
+        var itemId = Convert.ToString(id);
+        OnDeleteItem.InvokeAsync(itemId);
+    }
+
+    public void Refresh()
+    {
+        StateHasChanged();
     }
 }
 

@@ -11,5 +11,8 @@ namespace EntrySheet.Web.Interfaces
         bool AddUserRole(IdentityUserRole<string> userRole);
         List<IdentityUser> GetUsers();
         string GetUserRole(string userId);
+        bool UpdateRole(IdentityUserRole<string> userRole);
+        void DeleteUser(string Id);
+        bool SearchUsername(string name);
     }
 }

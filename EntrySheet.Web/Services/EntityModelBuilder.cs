@@ -36,7 +36,7 @@ namespace EntrySheet.Web.Services
                 Password = model.PasswordHash,
                 Email = model.Email
             };
-            return user; 
+            return user;
         }
     }
 }

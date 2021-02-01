@@ -9,5 +9,6 @@ namespace EntrySheet.Web.Interfaces
         List<ProjectUser> GetAssignedUsers(int projectId);
         bool RemoveAssignedUser(ProjectUser model);
         ProjectUser GetAssignedProject(string userId);
+        void RemoveProject(int id);
     }
 }

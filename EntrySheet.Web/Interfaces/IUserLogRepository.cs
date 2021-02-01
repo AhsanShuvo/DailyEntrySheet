@@ -10,5 +10,7 @@ namespace EntrySheet.Web.Interfaces
         List<UserLog> GetUserLogs(LogHistoryFilterModel model);
         void RemoveUserLog(UserLog logDetails);
         bool UpdateUserLog(UserLog logDetails);
+        void RemoveUserLogsByUserId(string id);
+        void RemoveUserLogsByProjectId(int id);
     }
 }

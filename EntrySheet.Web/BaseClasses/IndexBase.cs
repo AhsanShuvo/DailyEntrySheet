@@ -67,8 +67,6 @@ namespace EntrySheet.Web.BaseClasses
         protected void ClearModel()
         {
             LogEntry.Id = 0;
-            LogEntry.Description = string.Empty;
-            LogEntry.Hours = 0;
         }
     }
 }

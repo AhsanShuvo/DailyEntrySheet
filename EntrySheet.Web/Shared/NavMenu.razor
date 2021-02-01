@@ -7,42 +7,44 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="projects">
-                <span class="oi oi-project" aria-hidden="true"></span> Projects
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="users">
-                <span class="oi oi-people" aria-hidden="true"></span> Users
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="identity/account/login">
-                <span class="oi oi-account-login" aria-hidden="true"></span> Login
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="identity/account/logout">
-                <span class="oi oi-account-logout" aria-hidden="true"></span> logout
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="viewlogs">
-                <span class="oi oi-account-logout" aria-hidden="true"></span> Timesheet
-            </NavLink>
-        </li>
+        <AuthorizeView Roles="Global Admin, User Admin, User">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="viewlogs">
+                    <span class="oi oi-list" aria-hidden="true"></span> Timesheet
+                </NavLink>
+            </li>
+        </AuthorizeView>
+        <AuthorizeView Roles="Global Admin, User Admin">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="projects">
+                    <span class="oi oi-project" aria-hidden="true"></span> Projects
+                </NavLink>
+            </li>
+        </AuthorizeView>
+        <AuthorizeView Roles="Global Admin">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="users">
+                    <span class="oi oi-people" aria-hidden="true"></span> Users
+                </NavLink>
+            </li>
+        </AuthorizeView>
+        <AuthorizeView>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="identity/account/logout">
+                    <span class="oi oi-account-logout" aria-hidden="true"></span> logout
+                </NavLink>
+            </li>
+        </AuthorizeView>
     </ul>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
-
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()

@@ -1,6 +1,7 @@
 ﻿using EntrySheet.Web.Data;
 using EntrySheet.Web.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace EntrySheet.Web.Services
 {
     public class ProjectUserRepository : BaseRepository, IProjectUserRepository
     {
-        public ProjectUserRepository(ApplicationDbContext context): base(context)
+        private readonly ILogger<ProjectUserRepository> _logger;
+        public ProjectUserRepository(ApplicationDbContext context, ILogger<ProjectUserRepository> logger) : base(context)
         {
-
+            _logger = logger;
         }
         public bool AddNewUser(ProjectUser model)
         {
@@ -19,10 +21,12 @@ namespace EntrySheet.Web.Services
             {
                 _context.ProjectUsers.Add(model);
                 _context.SaveChanges();
+                _logger.LogInformation("Successfully added a new user.");
                 return true;
             }
             catch(Exception e)
             {
+                _logger.LogError(e, "Failed to connect to the database server");
                 return false;
             }
         }
@@ -40,6 +44,7 @@ namespace EntrySheet.Web.Services
             }
             catch(Exception e)
             {
+                _logger.LogError(e, "Failed to connect to the datbase server to fetch assigned users");
                 return new List<ProjectUser>();
             }
         }
@@ -54,6 +59,7 @@ namespace EntrySheet.Web.Services
             }
             catch(Exception e)
             {
+                _logger.LogError(e, "Failed to connect to the database server to remove user.");
                 return false;
             }
         }
@@ -69,7 +75,25 @@ namespace EntrySheet.Web.Services
             }
             catch(Exception e)
             {
+                _logger.LogError(e, "Failed to connect to the database server to get assign project");
                 return new ProjectUser();
+            }
+        }
+
+        public void RemoveProject(int id)
+        {
+            try
+            {
+                var project = _context.ProjectUsers
+                                .Include(m => m.ProjectRef)
+                                .Where(m => m.ProjectRef.Id == id)
+                                .ToList();
+                _context.ProjectUsers.RemoveRange(project);
+                _context.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                _logger.LogError(e, "Failed to connect to the database server to remove project");
             }
         }
     }

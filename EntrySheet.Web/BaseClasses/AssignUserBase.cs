@@ -34,10 +34,20 @@ namespace EntrySheet.Web.BaseClasses
 
         private void InitializeData()
         {
-            Users = UserRepository.GetFilteredUsers();
-            Projects = ProjectRepository.GetProjects();
+            InitUsers();
+            InitPorjects();
             if(ProjectId != 0)FillAssignedUser();
             UserId = Users[0].Id;
+        }
+
+        private void InitUsers()
+        {
+            Users = UserRepository.GetFilteredUsers();
+        }
+
+        private void InitPorjects()
+        {
+            Projects = ProjectRepository.GetProjects();
         }
 
         public void AssignNewUser()
@@ -71,6 +81,14 @@ namespace EntrySheet.Web.BaseClasses
             var projectuser = AssignedUsers.Where(m => m.Id == id).FirstOrDefault();
             ProjectUserRepository.RemoveAssignedUser(projectuser);
             InitializeData();
+        }
+
+        public void Refresh(int projectId)
+        {
+            var projectToRemove = Projects.SingleOrDefault(x => x.Id == projectId);
+            Projects.Remove(projectToRemove);
+            InitializeData();
+            StateHasChanged();
         }
     }
 }
