@@ -10,6 +10,7 @@ namespace EntrySheet.Web.BaseClasses
 {
     public class AssignUserBase : ComponentBase
     {
+        public bool IsDisabled { get; set; }
         public List<Project> Projects { get; set; }
         public List<IdentityUser> Users { get; set; }
         public ProjectUser ProjectUser { get; set; }
@@ -36,8 +37,10 @@ namespace EntrySheet.Web.BaseClasses
         {
             InitUsers();
             InitPorjects();
+            UserId = null;
             if(ProjectId != 0)FillAssignedUser();
-            UserId = Users[0].Id;
+            if(Users.Count > 0) UserId = Users[0].Id;
+            TriggerDisabled();
         }
 
         private void InitUsers()
@@ -52,7 +55,7 @@ namespace EntrySheet.Web.BaseClasses
 
         public void AssignNewUser()
         {
-            if(ProjectId != 0)
+            if(ProjectId != 0 && UserId != null)
             {
                 ProjectUser = new ProjectUser
                 {
@@ -69,6 +72,7 @@ namespace EntrySheet.Web.BaseClasses
         {
             ProjectId = Convert.ToInt32(args.Value);
             FillAssignedUser();
+            TriggerDisabled();
         }
 
         private void FillAssignedUser()
@@ -89,6 +93,12 @@ namespace EntrySheet.Web.BaseClasses
             Projects.Remove(projectToRemove);
             InitializeData();
             StateHasChanged();
+        }
+
+        private void TriggerDisabled()
+        {
+            if (ProjectId > 0 && UserId != null) IsDisabled = false;
+            else IsDisabled = true;
         }
     }
 }

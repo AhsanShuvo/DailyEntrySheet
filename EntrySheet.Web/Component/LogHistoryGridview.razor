@@ -4,27 +4,27 @@
 {
     <table class="table mt-2 table-striped table-bordered">
         <thead>
-            <tr class="bg-info" style="height: 20px">
-                <th>Date</th>
-                <th>Project</th>
-                <th>Description</th>
-                <th>Hours</th>
-                <th>Minutes</th>
+            <tr class="bg-info grid-row">
+                <th class="text-center">Date</th>
+                <th class="text-center">Project</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Hours</th>
+                <th class="text-center">Minutes</th>
                 @if (IsEditable == true)
                 {
-                    <th>Action</th>
+                    <th class="text-center">Action</th>
                 }
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Logs)
             {
-                <tr style="height: 18px">
-                    <td>@item.EntryDate.ToShortDateString()</td>
-                    <td>@item.ProjectRef.Name</td>
-                    <td>@item.Description</td>
-                    <td>@item.Hours</td>
-                    <td>@item.Minutes</td>
+                <tr class="grid-row">
+                    <td class="text-center">@item.EntryDate.ToShortDateString()</td>
+                    <td class="text-center">@item.ProjectRef.Name</td>
+                    <td class="text-center">@item.Description</td>
+                    <td class="text-center">@item.Hours</td>
+                    <td class="text-center">@item.Minutes</td>
                     @if (IsEditable == true)
                     {
                         <td class="text-center col-md-auto">

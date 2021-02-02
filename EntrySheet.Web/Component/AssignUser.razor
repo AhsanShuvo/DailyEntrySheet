@@ -1,6 +1,6 @@
 ﻿@inherits AssignUserBase
 
-@if (Projects != null && Users != null && Projects.Count > 0 && Users.Count > 0)
+@if (Projects != null && Projects.Count > 0)
 {
     <div class="card mx-auto col-md-9 mt-3">
         <h3 class="card-title mt-1 text-center text-info"> Assign a user in project</h3>
@@ -28,7 +28,7 @@
                         }
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success float-right rounded-pill">Add</button>
+                <button type="submit" class="btn btn-success float-right rounded-pill" disabled="@IsDisabled">Add</button>
             </div>
         </form>
         @if (AssignedUsers != null && AssignedUsers.Count > 0)
@@ -38,7 +38,7 @@
                 <ul class="list-group">
                     @foreach (var item in AssignedUsers)
                     {
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <li class="list-group-item d-flex justify-content-between align-items-center list-item">
                             @item.UserRef.UserName<span class="badge"><button class="btn btn-danger btn-sm rounded-pill" type="button" @onclick="@(() => RemoveAssignedUser(item.Id))"><i class="fas fa-times"></i></button></span>
                         </li>
                     }

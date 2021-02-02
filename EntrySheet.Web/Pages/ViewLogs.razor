@@ -9,7 +9,7 @@
         <div class="row col-md-12">
             <div>
                 <label class="text-info">User</label>&nbsp;
-                <InputSelect @bind-Value="LogHistoryFilterModel.UserName" style="width: 160px; height: 29px">
+                <InputSelect @bind-Value="LogHistoryFilterModel.UserName" class="select-box">
                     @foreach (var user in Users)
                         {
                         <option>@user.UserName</option>
@@ -18,7 +18,7 @@
             </div>
             <div class="ml-3">
                 <label class="text-info">Project</label>&nbsp;
-                <InputSelect @bind-Value="LogHistoryFilterModel.Project" style="width: 160px; height: 29px">
+                <InputSelect @bind-Value="LogHistoryFilterModel.Project" class="select-box">
                     @foreach (var project in Projects)
                         {
                         <option>@project.Name</option>
@@ -27,11 +27,11 @@
             </div>
             <div class="ml-3">
                 <label class="text-info">StartDate</label>&nbsp;
-                <InputDate @bind-Value="LogHistoryFilterModel.StartDate" style="width: 160px; height: 29px"></InputDate>
+                <InputDate @bind-Value="LogHistoryFilterModel.StartDate" class="select-box"></InputDate>
             </div>
             <div class="ml-3">
                 <label class="text-info">EndDate</label>
-                <InputDate @bind-Value="LogHistoryFilterModel.EndDate" style="width: 160px; height: 29px"></InputDate>
+                <InputDate @bind-Value="LogHistoryFilterModel.EndDate" class="select-box"></InputDate>
             </div>
             <div class="ml-2">
                 <button type="submit" class="btn btn-success btn-sm">Go</button>

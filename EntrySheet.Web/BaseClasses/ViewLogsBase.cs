@@ -49,17 +49,20 @@ namespace EntrySheet.Web.BaseClasses
             if(userRole == Role.User)
             {
                 Users.Clear();
+                Projects.Clear();
                 Users.Add(UserRepository.GetUser(Claims[0].Value.ToString()));
+                var assignedProject = ProjectUserRepository.GetAssignedProject(Claims[0].Value.ToString());
+                if(assignedProject != null)Projects.Add(assignedProject.ProjectRef);
             }
             else
             {
                 Users = UserRepository.GetUsers();
+                Projects = ProjectRepository.GetProjects();
             }
-            Projects = ProjectRepository.GetProjects();
             LogHistoryFilterModel.StartDate = DateTime.Now.AddDays(-7);
             LogHistoryFilterModel.EndDate = DateTime.Now;
             var project = ProjectUserRepository.GetAssignedProject(Claims[0].Value);
-            if (project != null) LogHistoryFilterModel.Project = project.ProjectRef.Name;
+            if (project != null) LogHistoryFilterModel.Project = project.ProjectRef.Name ?? project.ProjectRef.Name;
             LogHistoryFilterModel.UserName = Claims[1].Value;
         }
     }

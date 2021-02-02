@@ -4,15 +4,11 @@
 @inherits EditProjectBase
 @attribute [Authorize(Roles = "Global Admin, User Admin")]
 
-@if (ProjectInfo == null)
-{
-    <p>Loading...</p>
-}
-else
+@if (ProjectInfo != null)
 {
     <EditForm Model="ProjectInfo" OnValidSubmit="SubmitProject">
         <FluentValidationValidator />
-        <div class="card text-center mx-auto" style="width:28rem">
+        <div class="card text-center mx-auto card-width" >
             <div class="card-title text-center bg-info">
                 <h2>@Title</h2>
             </div>

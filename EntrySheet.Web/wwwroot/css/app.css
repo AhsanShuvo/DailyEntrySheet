@@ -1,0 +1,28 @@
+﻿.app-body {
+    min-height: 600px;
+}
+
+.navbar-sticky {
+    z-index: 100000;
+}
+
+.card-width {
+    width: 28rem;
+}
+
+.grid-width {
+    width: 57rem;
+}
+
+.select-box {
+    width: 160px; 
+    height: 29px;
+}
+
+.list-item {
+    height: 35px;
+}
+
+.grid-row {
+   height: 20px;
+}

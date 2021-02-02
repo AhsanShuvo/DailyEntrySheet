@@ -17,10 +17,10 @@ namespace EntrySheet.Web.BaseClasses
         public IUserService UserService { get; set; }
         [Inject]
         public IProjectUserRepository ProjectUserRepository { get; set; }
+
         protected async Task HandleValidSubmit()
         {
             await FillLogEntry();
-
             await OnSubmitLogEntry.InvokeAsync(true);
         }
 
@@ -40,6 +40,9 @@ namespace EntrySheet.Web.BaseClasses
                 {
                     UserLogRepository.AddUserLog(LogEntry);
                 }
+            }
+            else
+            {
             }
         }
     }

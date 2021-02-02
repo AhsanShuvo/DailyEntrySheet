@@ -5,11 +5,16 @@
 </div>
 
 <div class="main">
-    <div class="top-row px-4 auth" style="z-index: 10000">
+    <div class="top-row px-4 auth .navbar-sticky">
         <LoginDisplay />
     </div>
 
-    <div class="content px-4">
+    <div class="content px-4 mb-2 app-body">
         @Body
     </div>
+    <footer class="footer border-top text-muted text-center text-light position-relative mt-2">
+        <div class="container">
+            &copy; 2021 - EntrySheet - <a asp-area="" asp-page="Privacy">Privacy</a>
+        </div>
+    </footer>
 </div>
