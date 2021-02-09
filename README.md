@@ -1,10 +1,10 @@
 # DailyEntrySheet
 
-Daily Entrysheet helps an organization to manage tasks and employee.<br>
+Daily Entrysheet helps an organization to manage tasks and employees.<br>
 This application has 3 types of users.
 1. User - can log in using provided credentials. He can also entry daily work status. A user can see his own status log history.
-2. User Admin - create a project, assgin a user in a project and update those functionalities. A user admin can see all user's work status.
-3. Global Admin - can create new user, set a role for a user, edit & remove a user. He can perform all tasks a user admin can do.<br><br>
+2. User Admin - create a project, assign a user in a project and update those functionalities. A user admin can see all user's work status.
+3. Global Admin - can create a new user, set a role for a user, edit & remove a user. He can perform all tasks a user admin can do.<br><br>
 
 ### Technologies 
 1. Dot Net Core Blazor
