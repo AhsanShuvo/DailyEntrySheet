@@ -1,6 +1,6 @@
-﻿using EntrySheet.Domain.ViewModels;
-using EntrySheet.Web.Data;
+﻿using EntrySheet.Web.Data;
 using EntrySheet.Web.Interfaces;
+using EntrySheet.Web.ViewModels;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;

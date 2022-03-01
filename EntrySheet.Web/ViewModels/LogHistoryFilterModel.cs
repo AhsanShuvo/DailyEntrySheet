@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EntrySheet.Domain.ViewModels
+namespace EntrySheet.Web.ViewModels
 {
     public class LogHistoryFilterModel
     {

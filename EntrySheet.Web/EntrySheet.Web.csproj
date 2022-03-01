@@ -26,8 +26,4 @@
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EntrySheet.Domain\EntrySheet.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,7 +1,7 @@
-﻿using EntrySheet.Domain.ViewModels;
-using EntrySheet.Web.Component;
+﻿using EntrySheet.Web.Component;
 using EntrySheet.Web.Data;
 using EntrySheet.Web.Interfaces;
+using EntrySheet.Web.ViewModels;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;

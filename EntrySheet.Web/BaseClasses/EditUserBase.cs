@@ -1,11 +1,9 @@
-﻿using EntrySheet.Domain.Enums;
-using EntrySheet.Domain.ViewModels;
+﻿using EntrySheet.Web.Utilities;
+using EntrySheet.Web.ViewModels;
 using EntrySheet.Web.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EntrySheet.Web.BaseClasses

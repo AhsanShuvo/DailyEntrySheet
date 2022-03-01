@@ -1,5 +1,5 @@
-﻿using EntrySheet.Domain.Enums;
-using EntrySheet.Domain.ViewModels;
+﻿using EntrySheet.Web.Utilities;
+using EntrySheet.Web.ViewModels;
 using EntrySheet.Web.Component;
 using EntrySheet.Web.Data;
 using EntrySheet.Web.Interfaces;

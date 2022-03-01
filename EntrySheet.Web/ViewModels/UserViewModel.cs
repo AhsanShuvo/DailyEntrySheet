@@ -1,6 +1,6 @@
-﻿using EntrySheet.Domain.Enums;
+﻿using EntrySheet.Web.Utilities;
 
-namespace EntrySheet.Domain.ViewModels
+namespace EntrySheet.Web.ViewModels
 {
     public class UserViewModel
     {

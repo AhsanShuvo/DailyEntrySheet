@@ -1,5 +1,4 @@
-﻿
-namespace EntrySheet.Domain.Enums
+﻿namespace EntrySheet.Web.Utilities
 {
     public enum Months
     {

@@ -1,4 +1,4 @@
-﻿using EntrySheet.Domain.ViewModels;
+﻿using EntrySheet.Web.ViewModels;
 using EntrySheet.Web.Data;
 using System.Collections.Generic;
 

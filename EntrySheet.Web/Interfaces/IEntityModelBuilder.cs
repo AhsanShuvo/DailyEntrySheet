@@ -1,4 +1,4 @@
-﻿using EntrySheet.Domain.ViewModels;
+﻿using EntrySheet.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace EntrySheet.Web.Interfaces
